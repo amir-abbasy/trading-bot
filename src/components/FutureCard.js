@@ -2,7 +2,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '../global/Theme';
-const FutureCard = () => {
+
+// {"index": 3, "item": {"entryPrice": 0.4061, "exitPrice": 0.4086, "height": 0.6118453255017187, "pl": 0.5979600848789535,
+// "roi": "12.24%", "status": true, "symbol": "XRP/USDT", "time": "2023-01-27 22:05:00", "trade_id":
+//  "1d0ab55b"}, "separators": {"highlight": [Function highlight], "unhighlight": [Function unhighlight],
+//  "updateProps": [Function updateProps]}}
+
+const FutureCard = props => {
+  var info = props.data.item;
   return (
     <View style={styles.card}>
       <View>
@@ -10,44 +17,51 @@ const FutureCard = () => {
         <View style={{flexDirection: 'row'}}>
           <Text style={[styles.text, {color: colors.success}]}>Long</Text>
           <Text style={styles.text}>20x</Text>
-          <Text style={styles.text}>TRX/USDT</Text>
+          <Text style={styles.text}>{info?.symbol}</Text>
         </View>
         <View style={{flexDirection: 'row', marginTop: 5}}>
           <Text style={[styles.text, {color: colors.light + 70}]}>
             Entry Price{' '}
           </Text>
-          <Text style={styles.text}>0.004577</Text>
+          <Text style={styles.text}>{info?.entryPrice}</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={[styles.text, {color: colors.light + 70}]}>
             Exit Price
           </Text>
-          <Text style={styles.text}>0.004687</Text>
+          <Text style={styles.text}>{info?.exitPrice}</Text>
         </View>
       </View>
 
-
       <View style={{alignItems: 'center'}}>
-     <View style={{flexDirection:'row', alignItems: 'center'}}>
-     <Text style={[styles.text,{margin: 0, marginRight: 3, fontSize: 10, color: colors.light+70}]}>
-          0.8%
-        </Text>
-        <Ionicons
-          name="trending-up-outline"
-          color={colors.success}
-          size={18}
-          onPress={() => setShow(null)}
-        />
-     </View>
-        <Text style={[styles.text, styles.roi]}>
-          + {(Math.random() * 50).toFixed(1)}%
-        </Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text
+            style={[
+              styles.text,
+              {
+                margin: 0,
+                marginRight: 3,
+                fontSize: 10,
+                color: colors.light + 70,
+              },
+            ]}>
+           {(parseFloat(info?.height)).toFixed(1)+'%'}
+          </Text>
+          <Ionicons
+            name="trending-up-outline"
+            color={colors.success}
+            size={18}
+            onPress={() => setShow(null)}
+          />
+        </View>
+        <Text style={[styles.text, styles.roi]}>+ {info?.roi}</Text>
         <Text
           style={[
             styles.text,
             {color: colors.light + 70, textAlign: 'center'},
           ]}>
-          {new Date().toISOString().split('T')[0]}
+          {/* {info?.time.split(' ')[0]} */}
+          {info?.time}
         </Text>
       </View>
     </View>
@@ -62,7 +76,6 @@ const styles = StyleSheet.create({
     borderColor: colors.light + 50,
     backgroundColor: colors.light + 10,
     padding: 15,
-    margin: 15,
     marginVertical: 5,
     borderRadius: 3,
     flexDirection: 'row',

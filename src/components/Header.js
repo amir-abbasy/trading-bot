@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {getStore} from '../global/utils';
+import {color, getStore} from '../global/utils';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '../global/Theme';
 
@@ -13,6 +13,10 @@ export default function Header(props) {
   useEffect(() => {
     if (!user) getUser();
   }, []);
+
+  useEffect(()=>{
+    props?.getUserData && props.getUserData(user)
+  },[user])
 
   var getUser = async () => {
     var user_ = await getStore('@user');
@@ -46,7 +50,7 @@ export default function Header(props) {
             <Text
               style={{
                 ...styles.appName,
-                color: props?.homeHeader ? '#fff' : '#444',
+                color: colors.success,
               }}>
               {props.title}
             </Text>

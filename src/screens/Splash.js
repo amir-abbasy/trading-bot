@@ -2,16 +2,25 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '../global/Theme';
+import { getStore } from '../global/utils';
 
 const Splash = props => {
   useEffect(() => {
-    setTimeout(async () => {
-      // var user = await getStore('@user')
-      // if(user)nav.navigate('Main')
-      // else nav.navigate('Login')
-      props.navigation.navigate('Login');
-    }, 1000);
+    _checkIsUserLogin()
+  
   });
+
+  _checkIsUserLogin = async()=>{
+    var user_ = await getStore('@user');
+    setTimeout(async () => {
+      if(JSON.parse(user_)){
+        props.navigation.navigate('Main');
+      }else{
+        props.navigation.navigate('Login');
+      }
+    }, 1000);
+
+  }
   return (
     <View
       style={{

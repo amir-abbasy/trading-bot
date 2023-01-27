@@ -34,21 +34,12 @@ const Home = props => {
   };
 
   return (
-    <Layout onRefresh={() => _getTrades()} toast={'Login Success'}>
+    <Layout onRefresh={() => _getTrades()} toast={'Login Success'} >
       <View style={styles.container}>
-        <View style={styles.center}>
-          <Text style={styles.balance}>$0.00</Text>
-          <Text style={styles.usdtbalance}>USDT Balance</Text>
+          <Text style={styles.title}>Trade History</Text>
+      {/* <FlatList data={[1,2,3,4,5,6,7]} renderItem={(item)=> <FutureCard/>} /> */}
+        {trades && <FlatList data={trades} renderItem={(item)=> <FutureCard data={item} />} />}
         </View>
-        {/* <FlatList data={[1,2,3,4,5,6,7]} renderItem={(item)=> <FutureCard/>} /> */}
-        <Text style={styles.title}>Positions</Text>
-        {trades && (
-          <FlatList
-            data={trades}
-            renderItem={item => <FutureCard data={item} />}
-          />
-        )}
-      </View>
     </Layout>
   );
 };
@@ -57,28 +48,17 @@ const styles = {
   container: {
     backgroundColor: colors.primary,
     margin: 15,
-  },
-  center: {
-    alignItems: 'center',
-    marginBottom: 50,
+
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   title: {
-    color: colors.light,
-    fontSize: 14,
-    marginLeft: 0,
-    margin: 10,
-  },
-  balance: {
     color: colors.success,
-    fontSize: 35,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  usdtbalance: {
-    color: colors.light + 80,
     fontSize: 14,
-    marginTop: 10,
+    fontWeight: 'bold',
+    marginBottom: 10
   },
+ 
 };
 
 export default Home;

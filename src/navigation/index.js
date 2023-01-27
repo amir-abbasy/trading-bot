@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { StatusBar } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -12,8 +13,9 @@ import Splash from '../screens/Splash';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Settings from '../screens/Settings';
+import History from '../screens/History';
+import Logs from '../screens/Logs';
 
-import { StatusBar } from 'react-native';
 
 const StackNavation = createNativeStackNavigator();
 
@@ -33,6 +35,8 @@ export default function StackNavationScreens() {
       <StackNavation.Screen name="Login" component={Login} />
       <StackNavation.Screen name="SignUp" component={SignUp} />
       <StackNavation.Screen name="Profile" component={Profile} />
+      <StackNavation.Screen name="Logs" component={Logs} />
+      {/* <StackNavation.Screen name="History" component={History} /> */}
     </StackNavation.Navigator>
     </NavigationContainer>
   );
@@ -52,9 +56,10 @@ const BottomTab = createBottomTabNavigator();
           // activeBackgroundColor: '#c4461c',
           // inactiveBackgroundColor: '#b55031',
           tabBarStyle: {
-            // height: 90,
+            height: 60,
             paddingHorizontal: 5,
             paddingBottom: 10,
+            paddingTop: 10,
             backgroundColor: colors.primary,
             // position: 'absolute',
             borderTopWidth: 0,
@@ -72,12 +77,12 @@ const BottomTab = createBottomTabNavigator();
           }}
         />
         <BottomTab.Screen
-          name="Profile"
-          component={Profile}
+          name="History"
+          component={History}
           options={{
-            tabBarLabel: 'Profile',
+            tabBarLabel: 'History',
             tabBarIcon: ({focused, color, size}) => (
-              <Ionicons name={focused ? "person" : "person-outline"} color={color} size={size} />
+              <Ionicons name={focused ? "reorder-four" : "reorder-four-outline"} color={color} size={size} />
             ),
           }}
         />

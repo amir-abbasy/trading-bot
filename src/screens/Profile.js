@@ -1,19 +1,49 @@
-import {
-  View,
-  Text,
-  Image,
-} from 'react-native';
-import { colors } from '../global/Theme';
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Image, Alert, TouchableOpacity} from 'react-native';
+import {Layout, Button} from '../components';
+import Input from '../components/Input';
+import {default_url} from '../global/Config';
+import {colors} from '../global/Theme';
+import { storeRemoveData } from '../global/utils';
+// import * as utils from '../global/utils';
 
+const Settings = props => {
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState();
 
-const Profile = (props) => {
+  // useEffect(() => {
+  //   _getUserData();
+  // }, [user]);
+
+  const _getUserData = async (id = null) => {};
+
+  console.log('user', user);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} />
-        <Text style={styles.logoText}>Profile</Text>
-      </View>
-    </View>
+    <Layout
+      title="Profile"
+      getUserData={data => data && setUser(JSON.parse(data))}>
+      {user && (
+        <View style={styles.container}>
+          <Image style={styles.logo} />
+          <Text style={styles.title}>{user.username}</Text>
+          <Text style={styles.text}>{user.email}</Text>
+
+          <Button
+                text={'Logout'}
+                onPress={() => {
+                    storeRemoveData('@user')
+                    props.navigation.navigate('Login')
+                }}
+                style={{backgroundColor: colors.warn, marginTop: 50}}
+                color={{color: 'red'}}
+              />
+        </View>
+      )}
+    </Layout>
   );
 };
 
@@ -21,26 +51,32 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 22,
   },
   logoContainer: {
-    alignItems: 'center',
     marginBottom: 50,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
+    backgroundColor: colors.light + 20,
+    borderRadius: 2,
   },
-  logoText: {
+  title: {
     color: colors.light,
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
+    margin: 10,
+    marginLeft: 0,
+  },
+  text: {
+    color: colors.light,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   formContainer: {
-    width: '80%',
+    width: '100%',
   },
 };
 
-export default Profile;
+export default Settings;

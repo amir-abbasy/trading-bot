@@ -12,6 +12,7 @@ const InputField = (props) => {
       placeholderTextColor="#aaa"
       autoCapitalize="none"
       keyboardType="email-address"
+      editable={props?.editable}
     />
   );
 };

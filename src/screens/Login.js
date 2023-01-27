@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, Alert, TouchableOpacity} from 'react-native';
 const axios = require('axios');
 import BTButton from '../components/Button';
@@ -9,13 +9,15 @@ import Service from '../global/Service';
 import {storeData} from '../global/utils'
 
 const Login = props => {
-  const [email, setEmail] = useState('amirabbasyk2@gmail.com');
+  const [email, setEmail] = useState('test@gmail.com');
   const [password, setPassword] = useState('123456');
   const [err, seterr] = useState();
   const [loading, setLoading] = useState(false);
   // const nav = useNavigation();
 
-  const handleLogin = () => {
+  
+
+  const handleLogin = async () => {
     if (email.length < 1 || password.length < 1) {
       seterr(`Enter ${email.length < 1 ? 'Email' : 'Password'}`);
       return false;

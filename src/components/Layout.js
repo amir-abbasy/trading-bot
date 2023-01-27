@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useRef}from 'react';
 import {
   RefreshControl,
   SafeAreaView,
@@ -11,6 +11,7 @@ import {Header, Toast} from '../components'
 
 const Layout = (props) => {
   const [refreshing, setRefreshing] = React.useState(false);
+  const scrollViewRef = useRef();
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -20,15 +21,18 @@ const Layout = (props) => {
     }, 2000);
   }, []);
 
+ 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         stickyHeaderIndices={[0]}
+        ref={scrollViewRef}
+        onContentSizeChange={() => props?.scrollToEnd && scrollViewRef.current.scrollToEnd({ animated: true })}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
         }>
-         {props?.header == false ? null :  <Header/>}
+         {props?.header == false ? null :  <Header title={props?.title} getUserData={props?.getUserData} />}
         {props?.children}
       </ScrollView>
       {props?.toast && <Toast message={props?.toast}/>}

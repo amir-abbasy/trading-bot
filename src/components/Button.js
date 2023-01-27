@@ -5,17 +5,17 @@ import { colors } from '../global/Theme';
 const SubmitButton = (props) => {
   return (
     <TouchableOpacity style={[styles.button, props.style]}
-    onPress={props.onPress}
+    onPress={()=> props.onPress()}
     >
       {props?.loading ? <ActivityIndicator color="#fff" loading={true} />
-      :<Text style={styles.buttonText}>{props.text}</Text>}
+      :<Text style={[styles.buttonText, props?.color]}>{props.text}</Text>}
     </TouchableOpacity>
   );
 };
 SubmitButton.defaultProps = {
   text: 'Submit',
   onPress: ()=> alert("no cation"),
-  loading: true
+  loading: false
 };
 
 const styles = {
