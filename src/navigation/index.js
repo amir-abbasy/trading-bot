@@ -15,6 +15,7 @@ import SignUp from '../screens/SignUp';
 import Settings from '../screens/Settings';
 import History from '../screens/History';
 import Logs from '../screens/Logs';
+import Test from '../screens/Test';
 
 
 const StackNavation = createNativeStackNavigator();
@@ -36,6 +37,7 @@ export default function StackNavationScreens() {
       <StackNavation.Screen name="SignUp" component={SignUp} />
       <StackNavation.Screen name="Profile" component={Profile} />
       <StackNavation.Screen name="Logs" component={Logs} />
+      <StackNavation.Screen name="Test" component={Test} />
       {/* <StackNavation.Screen name="History" component={History} /> */}
     </StackNavation.Navigator>
     </NavigationContainer>

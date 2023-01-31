@@ -48,13 +48,13 @@ const FutureCard = props => {
            {(parseFloat(info?.height)).toFixed(1)+'%'}
           </Text>
           <Ionicons
-            name="trending-up-outline"
-            color={colors.success}
+            name={info?.status ? "trending-up-outline" : "trending-down-outline"}
+            color={info?.status ? colors.success :  colors.error}
             size={18}
             onPress={() => setShow(null)}
           />
         </View>
-        <Text style={[styles.text, styles.roi]}>+ {info?.roi}</Text>
+        <Text style={[styles.text, styles.roi, {color: info?.status ? colors.success :  colors.error}]}>{info?.status ? '+': null} {info?.roi}%</Text>
         <Text
           style={[
             styles.text,
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   },
   roi: {
     fontSize: 35,
-    color: colors.success,
     fontWeight: 'bold',
     textAlign: 'center',
   },

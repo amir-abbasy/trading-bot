@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '../global/Theme';
 import { getStore } from '../global/utils';
@@ -29,7 +29,8 @@ const Splash = props => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Ionicons name={'trending-up-outline'} color={colors.success} size={50} />
+      {/* <Ionicons name={'trending-up-outline'} color={colors.success} size={50} /> */}
+      <Image style={{with: 130, height: 130}} resizeMode="contain" source={require('../assets/logo.png')} />
       <Text style={{color: colors.success}}>Trading BOT</Text>
     </View>
   );

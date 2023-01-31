@@ -22,7 +22,7 @@ export default function Header(props) {
     var user_ = await getStore('@user');
     setUser(JSON.parse(user_));
   };
-  console.log(typeof user);
+
 
   return (
     <View
@@ -57,7 +57,16 @@ export default function Header(props) {
           )}
         </View>
         {!props?.canGoBack && user && (
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary, padding:5, borderRadius: 50, paddingHorizontal: 10}}>
+           <Ionicons
+           onPress={() => nav.navigate('Profile')}
+           name="stop-circle-outline"
+           color={ JSON.parse(user).BotStatus ? colors.success : colors.error}
+           size={15}
+           style={{marginRight: 5}}
+         /> 
+          <Text style={{color: colors.success, fontSize: 25}}>
+          </Text>
             <Text style={{color: colors.light, marginRight: 15}}>{JSON.parse(user).username}</Text>
             <Ionicons
               onPress={() => nav.navigate('Profile')}

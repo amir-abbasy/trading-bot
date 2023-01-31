@@ -6,7 +6,7 @@ import {Input, Layout} from '../components';
 import {colors} from '../global/Theme';
 import {default_url} from '../global/Config';
 
-const Logs = props => {
+const Test = props => {
   const [loading, setLoading] = useState(false);
   const [logs, setLogs] = useState();
 
@@ -50,4 +50,4 @@ const styles = {
   },
 };
 
-export default Logs;
+export default Test;

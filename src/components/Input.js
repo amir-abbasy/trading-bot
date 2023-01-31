@@ -11,7 +11,7 @@ const InputField = (props) => {
       placeholder={props.placeholder}
       placeholderTextColor="#aaa"
       autoCapitalize="none"
-      keyboardType="email-address"
+      keyboardType={props?.keyboardType ?? "default"}
       editable={props?.editable}
     />
   );

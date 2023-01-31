@@ -30,7 +30,10 @@ const Settings = props => {
         <View style={styles.container}>
           <Image style={styles.logo} />
           <Text style={styles.title}>{user.username}</Text>
+          <Text style={[styles.text,{marginTop: 15, color: colors.light+70}]}>EMAIL : </Text>
           <Text style={styles.text}>{user.email}</Text>
+          <Text style={[styles.text,{marginTop: 15, color: colors.light+70}]}>INVEST : </Text>
+          <Text style={styles.text}>${user.invest} </Text>
 
           <Button
                 text={'Logout'}

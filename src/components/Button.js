@@ -1,11 +1,13 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { colors } from '../global/Theme';
 
 const SubmitButton = (props) => {
   return (
     <TouchableOpacity style={[styles.button, props.style]}
-    onPress={()=> props.onPress()}
+    onPress={()=> props.onPress()
+    }
+    activeOpacity={.6}
     >
       {props?.loading ? <ActivityIndicator color="#fff" loading={true} />
       :<Text style={[styles.buttonText, props?.color]}>{props.text}</Text>}

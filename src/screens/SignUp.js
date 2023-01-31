@@ -6,28 +6,36 @@ import {Input, Layout} from '../components';
 import {colors} from '../global/Theme';
 import {default_url} from '../global/Config';
 import Service from '../global/Service';
-import {storeData} from '../global/utils'
+import {storeData} from '../global/utils';
 
 const Login = props => {
-  const [email, setEmail] = useState('amirabbasyk@gmail.com');
-  const [name, setName] = useState('name');
-  const [password, setPassword] = useState('123456');
-  const [conPassword, setConPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [conPassword, setConPassword] = useState('');
   const [err, seterr] = useState();
   const [loading, setLoading] = useState(false);
   // const nav = useNavigation();
 
   const handleLogin = () => {
-    if (email.length < 1 || password.length < 1 || name.length < 1 || conPassword.length < 1) {
-      seterr(`All fileds are required!`);
+    if (
+      email.length < 1 ||
+      password.length < 1 ||
+      name.length < 1 ||
+      conPassword.length < 1
+    ) {
+      seterr({color: colors.error, message: 'All fileds are required!'});
       return false;
     } else {
       if (password.length < 6) {
-        seterr(`Password must be 6 characters or more`);
+        seterr({
+          color: colors.warn,
+          message: 'Password must be 6 characters or more',
+        });
         return false;
       } else {
         if (password !== conPassword) {
-          seterr(`Password don't match`);
+          seterr({color: colors.error, message: `Password don't match`});
           return false;
         }
         seterr();
@@ -38,28 +46,28 @@ const Login = props => {
   };
 
   const _login = async () => {
-    (true);
+    true;
     let body = {
-      "username": name,
-      "email": email,
-      "password": password,
-      "pk": null,
-      "sk": null,
-      "balanceUSDT": 0,
-      "invest": 10,
-      "leverage": 20
-  }
+      username: name,
+      email: email,
+      password: password,
+      pk: null,
+      sk: null,
+      balanceUSDT: 0,
+      invest: 10,
+      leverage: 20,
+    };
     // console.log(body);
     axios
       .post(default_url + '/createAccount', body)
       .then(function (response) {
         console.log(response.data);
         if (response.data.status) {
-          seterr(response.data.message);
-          setTimeout(()=>props.navigation.navigate('Login'), 2000)
-          console.log("success");
+          seterr({color: colors.success, message: response.data.message});
+          setTimeout(() => props.navigation.navigate('Login'), 2000);
+          console.log('success');
         } else {
-          seterr(response.data.message);
+          seterr({color: colors.error, message: response.data.message});
         }
         setLoading(false);
       })
@@ -70,41 +78,37 @@ const Login = props => {
   };
 
   return (
-    <Layout toast={err}>
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>Login</Text>
+    <Layout toast={err?.message ?? false}>
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Text style={styles.logoText}>Login</Text>
+        </View>
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={val => setEmail(val)}
+        />
+        <Input placeholder="Name" value={name} onChange={val => setName(val)} />
+        <Input
+          placeholder="Password"
+          value={password}
+          onChange={val => setPassword(val)}
+        />
+        <Input
+          placeholder="Confirm Password"
+          value={conPassword}
+          onChange={val => setConPassword(val)}
+        />
+        {err?.message && (
+          <Text style={{color: err.color, margin: 5}}>{err.message}</Text>
+        )} 
+        <BTButton text="Login" onPress={handleLogin} loading={loading} />
+        <Text
+          style={styles.text}
+          onPress={() => props.navigation.navigate('Login')}>
+          Already have an account!
+        </Text>
       </View>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChange={val => setEmail(val)}
-      />
-       <Input
-        placeholder="Name"
-        value={name}
-        onChange={val => setName(val)}
-      />
-      <Input
-        placeholder="Password"
-        value={password}
-        onChange={val => setPassword(val)}
-      />
-       <Input
-        placeholder="Confirm Password"
-        value={conPassword}
-        onChange={val => setConPassword(val)}
-      />
-
-
-      {err && <Text style={{color: 'tomato', margin: 5}}>{err}</Text>}
-      <BTButton text="Login" onPress={handleLogin} loading={loading} />
-      <Text
-        style={styles.text}
-        onPress={() => props.navigation.navigate('SignUp')}>
-        Create new account
-      </Text>
-    </View>
     </Layout>
   );
 };

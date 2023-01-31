@@ -9,20 +9,22 @@ const Switch = (props) => {
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: colors.secondary,
+        borderRadius: 3
       }}
-      onPress={()=> null}
+      // onPress={()=> null}
       >
       <Button
         text="ON"
-        //   onPress={() => setNewAPIKeys()}
+        onPress={() => props?.mode == true ? null : props?.onSwitch(true)}
         loading={false}
         style={{width: '50%', backgroundColor: props?.mode == true ? colors.success :  colors.secondary}}
       />
         <Button
         text="OFF"
-        //   onPress={() => setNewAPIKeys()}
+          onPress={() => props?.mode == false ? null : props?.onSwitch(false)}
         loading={false}
-        style={{width: '50%', backgroundColor: props?.mode == false ? colors.success :  colors.secondary}}
+        style={{width: '50%', backgroundColor: props?.mode == false ? colors.error :  colors.secondary}}
       />
      
     </TouchableOpacity>

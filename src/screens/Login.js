@@ -9,8 +9,8 @@ import Service from '../global/Service';
 import {storeData} from '../global/utils'
 
 const Login = props => {
-  const [email, setEmail] = useState('test@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [err, seterr] = useState();
   const [loading, setLoading] = useState(false);
   // const nav = useNavigation();
